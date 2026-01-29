@@ -39,12 +39,22 @@
                         <?php endif; ?>
                     </td>
                     <td>
-                        <a href="<?= site_url('user/view/'.$data->user_id) ?>" class="btn btn-xs btn-success">
+                        <a href="<?= site_url('users/view/'.$data->user_id) ?>" 
+                        class="btn btn-xs btn-success">
                             <i class="fas fa-eye"></i> View
                         </a>
-                        <a href="<?= site_url('user/edit/'.$data->user_id) ?>" class="btn btn-xs btn-warning">
-                            <i class="fas fa-edit"></i> Edit
+
+                        <a href="javascript:void(0)"
+                            class="btn btn-xs btn-warning btn-edit"
+                            data-id="<?= $data->user_id ?>"
+                            data-username="<?= $data->username ?>"
+                            data-name="<?= $data->name ?>"
+                            data-address="<?= $data->address ?>"
+                            data-level="<?= $data->level ?>"
+                            data-image="<?= $data->image ?>">
+                                <i class="fas fa-edit"></i> Edit
                         </a>
+
                     </td>
                 </tr>
                 <?php } ?>
@@ -74,6 +84,9 @@
                       action="<?= site_url('users/tambah_aksi') ?>"
                       method="post"
                       enctype="multipart/form-data">
+
+                      <!-- ID (untuk edit) -->
+                    <input type="hidden" name="user_id" id="user_id">
 
                     <div class="row">
                         <!-- Kolom Kiri -->
@@ -196,3 +209,6 @@ $(document).ready(function() {
     bsCustomFileInput.init();
 });
 </script>
+
+
+

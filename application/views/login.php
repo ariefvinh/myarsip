@@ -29,7 +29,11 @@
 
                 <form action="<?= site_url('auth/process') ?>" method="post">
                     <div class="input-group mb-3">
-                        <input type="text" name="username" class="form-control" placeholder="Username" required>
+                        <input type="text" name="username" class="form-control"
+                            placeholder="Username" required
+                            oninvalid="this.setCustomValidity('Username wajib diisi')"
+                            oninput="this.setCustomValidity('')">
+
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -37,7 +41,11 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+                        <input type="password" name="password" class="form-control"
+                            placeholder="Password" required
+                            oninvalid="this.setCustomValidity('Password wajib diisi')"
+                            oninput="this.setCustomValidity('')">
+
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -139,4 +147,116 @@ Swal.fire({
 });
 </script>
 <?php endif; ?>
+
+<style>
+/* ===========================
+   GLOBAL DARK LOGIN
+=========================== */
+.login-page {
+    color: #fff;
+}
+
+/* ===========================
+   CARD (GLASS DARK)
+=========================== */
+.login-page .card {
+    background: rgba(0, 0, 0, 0.55) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 15px 45px rgba(0,0,0,0.85);
+}
+
+/* Header & Body transparan */
+.login-page .card-header,
+.login-page .card-body {
+    background: transparent !important;
+    border: none;
+}
+
+/* ===========================
+   TEXT
+=========================== */
+.login-page a,
+.login-page label,
+.login-page .login-box-msg {
+    color: #eaeaea !important;
+}
+
+/* Logo */
+.login-page .card-header a {
+    color: #ffffff !important;
+}
+
+/* ===========================
+   INPUT FIELD
+=========================== */
+.login-page .form-control {
+    background: rgba(20, 20, 20, 0.85);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.15);
+}
+
+.login-page .form-control::placeholder {
+    color: rgba(255,255,255,0.5);
+}
+
+/* Input focus */
+.login-page .form-control:focus {
+    background: rgba(25,25,25,0.95);
+    color: #fff;
+    border-color: #0d6efd;
+    box-shadow: none;
+}
+
+/* Icon input */
+.login-page .input-group-text {
+    background: rgba(25,25,25,0.9);
+    color: #ccc;
+    border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* ===========================
+   BUTTON
+=========================== */
+.login-page .btn-primary {
+    background: linear-gradient(135deg, #0d6efd, #0047b3);
+    border: none;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 6px 20px rgba(13,110,253,.45);
+}
+
+.login-page .btn-primary:hover {
+    background: linear-gradient(135deg, #0b5ed7, #003a8f);
+}
+
+/* ===========================
+   REMOVE WHITE SHADOW
+=========================== */
+.login-box {
+    box-shadow: none;
+}
+
+/* ===========================
+   SMOOTH APPEAR
+=========================== */
+.login-box {
+    animation: fadeZoom 0.6s ease-out;
+}
+
+@keyframes fadeZoom {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+</style>
+
+
 
