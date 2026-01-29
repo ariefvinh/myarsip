@@ -23,32 +23,71 @@
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown user-menu">
-                    <a href="<?= base_url('assets/') ?>dist/img/user2-160x160.jpg" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?= base_url('assets/') ?>dist/img/user2-160x160.jpg"
-                            class="user-image img-circle elevation-2"
-                            alt="User Image"
-                            style="width:32px;height:32px;object-fit:cover;">
-                        <span class="d-none d-md-inline">Alexander Pierce</span>
-                    </a>
+                <li class="dropdown user user-menu">
+                    <a href="#" class=" dropdown-toggle nav-link" data-toggle="dropdown">
 
-                    <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <li class="user-header bg-primary text-center">
-                            <img src="<?= base_url('assets/') ?>dist/img/user2-160x160.jpg"
-                                class="img-circle elevation-2"
-                                alt="User Image"
-                                style="width:80px;height:80px;object-fit:cover;">
-                            <p class="d-block">
-                                Alexander Pierce<br>
-                                <small>ALAMAT</small>
-                                <small>USERNAME</small>
+                        <?php
+                        $ci = &get_instance();
+                        $user_id = $ci->session->userdata('userid');
+
+                        $default_image = 'dist/img/user2-160x160.jpg';
+                        $image_src = base_url($default_image); // Default dulu
+
+                        if (!empty($user_id)) {
+                            $ci->load->model('user_m');
+                            $user = $ci->user_m->get_by_id($user_id);
+
+                            if ($user && !empty($user->image)) {
+                                $image_path = FCPATH . 'uploads/users/' . $user->image;
+                                if (file_exists($image_path)) {
+                                    $image_src = base_url('uploads/users/' . $user->image);
+                                }
+                            }
+                        }
+                        ?>
+
+                        <img src="<?= $image_src ?>" class="user-image img-circle elevation-2" alt="User Image"
+                            style="width: 160; height: 160; object-fit: cover;">
+                        <span class="info"><?= $this->fungsi->user_login()->name ?> </span><i class="fas fa-caret-down">
+                        </i>
+                    </a>
+                    <ul class="dropdown-menu bg-gray">
+                        <!-- User image -->
+                        <li class="user-header">
+                            <div class="image">
+                                <?php
+                                $ci = &get_instance();
+                                $user_id = $ci->session->userdata('userid');
+
+                                // Force load dari database
+                                $ci->load->model('user_m');
+                                $user = $ci->user_m->get_by_id($user_id);
+
+                                $default_image = 'dist/img/user2-160x160.jpg';
+
+                                if ($user && !empty($user->image)) {
+                                    $image_src = base_url('uploads/users/' . $user->image);
+                                } else {
+                                    $image_src = base_url($default_image);
+                                }
+                                ?>
+                                <img src="<?= $image_src ?>" class="img-circle elevation-2" alt="User Image"
+                                    style="max-width: 80px; max-height: 80px; width: auto; height: auto; object-fit: cover;">
+                            </div>
+
+                            <p>
+                                <?= $this->fungsi->user_login()->name ?>
+                                <small><?= $this->fungsi->user_login()->address ?></small>
+                                <small><?= $this->fungsi->user_login()->username ?></small>
                             </p>
                         </li>
 
+                        <!-- Menu Footer-->
                         <li class="user-footer">
-                            <a href="" class="btn btn-warning btn-sm float-right">
-                                Sign out
-                            </a>
+                            <div class="float-right">
+                                <a href="<?= site_url('auth/logout') ?>" type="button"
+                                    class="btn btn-block btn-warning btn-sm">Sign out</a>
+                            </div>
                         </li>
                     </ul>
                 </li>
@@ -79,10 +118,28 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="<?= base_url('assets/') ?>dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <?php
+                        $ci = &get_instance();
+                        $user_id = $ci->session->userdata('userid');
+
+                        // Force load dari database
+                        $ci->load->model('user_m');
+                        $user = $ci->user_m->get_by_id($user_id);
+
+                        $default_image = 'dist/img/user2-160x160.jpg';
+
+                        if ($user && !empty($user->image)) {
+                            $image_src = base_url('uploads/users/' . $user->image);
+                        } else {
+                            $image_src = base_url($default_image);
+                        }
+                        ?>
+
+                        <img src="<?= $image_src ?>" class="img-circle elevation-2" alt="User Image"
+                            style="width: 160; height: 160; object-fit: cover;">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <a href="#" class="d-block"><?= $this->fungsi->user_login()->name ?></a>
                     </div>
                 </div>
 
@@ -101,7 +158,6 @@
                                 </p>
                             </a>
                         </li>
-
                         <li class="nav-header">Master</li>
 
                         <li class="nav-item">
@@ -132,10 +188,14 @@
                                 <i class="nav-icon fas fa-file-invoice"></i>
                                 <p>
                                     Laporan
-                                    <span class="right badge badge-warning">1</span>
+                                    <span class="right badge badge-info">1</span>
                                 </p>
                             </a>
                         </li>
+                        <!-- ============= Pembatasan hak akses user ======================== -->
+                        <!-- ============= Pembatasan hak akses user ======================== -->
+                        <?php if ($this->session->userdata('level') == 1) { ?>
+                        <li class="nav-header"><span class="right badge badge-warning">SUPER ADMIN</span></li>
                         <li class="nav-item">
                             <a href="<?= base_url('users') ?>" class="nav-link">
                                 <i class="nav-icon fas fa-user-tie"></i>
@@ -145,6 +205,8 @@
                                 </p>
                             </a>
                         </li>
+                        <?php } ?>
+                        <!-- ============= Pembatasan hak akses user ======================== -->
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

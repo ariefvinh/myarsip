@@ -14,6 +14,24 @@ class User_m extends CI_Model
         $query = $this->db->get();
         return $query;
     }
+    // Tampil data
+    public function get($id = null)
+    {
+        $this->db->from($this->table);
+        if ($id != null) {
+            $this->db->where('user_id', $id);
+        }
+        $query = $this->db->get();
+        return $query;
+    }
+    // Get user by ID untuk cetak nama pada session login
+    public function get_by_id($id)
+    {
+        $this->db->from($this->table);
+        $this->db->where('user_id', $id);
+        $query = $this->db->get();
+        return $query->row();
+    }
 
     
 }
