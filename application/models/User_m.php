@@ -47,6 +47,14 @@ class User_m extends CI_Model
         $this->db->insert($this->table, $params);
         return $this->db->insert_id();
     }
+    // update data
+    public function update($id, $data)
+    {
+        $this->db->where('user_id', $id);
+        return $this->db->update('user', $data);
+    }
+
+
 
     
 }

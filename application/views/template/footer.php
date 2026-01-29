@@ -75,6 +75,79 @@ Swal.fire({
 </script>
 <?php endif; ?>
 
+
+
+
+<!-- SCRIPT EDIT (ISI DATA KE MODAL) -->
+<script>
+$(document).ready(function () {
+
+    $(document).on('click', '.btn-edit', function () {
+
+        $('#user_id').val($(this).data('id'));
+        $('#username').val($(this).data('username'));
+        $('#name').val($(this).data('name'));
+        $('#address').val($(this).data('address'));
+        $('#level').val($(this).data('level'));
+
+        $('#password').prop('required', false);
+        $('#image').prop('required', false);
+
+        // ===== INI KUNCINYA =====
+        let image = $(this).data('image');
+
+        if (image) {
+            $('#imagePreview')
+                .attr('src', "<?= base_url('uploads/users/') ?>" + image)
+                .show();
+        } else {
+            $('#imagePreview').hide();
+        }
+
+        $('.custom-file-label').text('Choose file');
+
+        $('#form_user').attr('action', "<?= site_url('users/edit') ?>");
+        $('#exampleModalLabel').text('Edit User');
+
+        $('#exampleModal').modal('show');
+    });
+
+});
+</script>
+
+<!-- RESET MODAL (saat tambah data lagi) -->
+ <script>
+$('#exampleModal').on('hidden.bs.modal', function () {
+    $('#form_user')[0].reset();
+    $('#user_id').val('');
+
+    $('#password').prop('required', true);
+    $('#image').prop('required', true);
+
+    $('#imagePreview').hide();
+    $('.custom-file-label').text('Choose file');
+
+    $('#form_user').attr('action', "<?= site_url('users/tambah_aksi') ?>");
+    $('#exampleModalLabel').text('Input User');
+});
+</script>
+
+
+
+<!-- SWEETALERT BERHASIL -->
+<script src="<?= base_url('assets/plugins/sweetalert2/sweetalert2.min.js') ?>"></script>
+<script>
+<?php if ($this->session->flashdata('success')): ?>
+Swal.fire({
+    icon: 'success',
+    title: 'Berhasil',
+    text: '<?= $this->session->flashdata('success') ?>',
+    timer: 2000,
+    showConfirmButton: false
+});
+<?php endif; ?>
+</script>
+
 </body>
 
 </html>
