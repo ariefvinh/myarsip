@@ -78,6 +78,6 @@ class Users extends CI_Controller
             $this->session->set_flashdata('error', $error);
         }
         
-        redirect('user');
+        redirect('users');
     }
 }
