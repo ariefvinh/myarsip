@@ -36,6 +36,8 @@
 <script src="<?= base_url('assets') ?>/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="<?= base_url('assets') ?>/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="<?= base_url('assets') ?>/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- sweetaler -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- AdminLTE App -->
 <script src="<?= base_url('assets') ?>/dist/js/adminlte.min.js"></script>
 <!-- Page specific script -->
@@ -58,6 +60,21 @@
         });
     });
 </script>
+
+<!-- PESAN FLASH DATA LOGIN BERHASIL DAN TIDAK -->
+<?php if ($this->session->flashdata('success')) : ?>
+<script>
+Swal.fire({
+    toast: true,
+    position: 'top',
+    icon: 'success',
+    title: '<?= $this->session->flashdata('success'); ?>',
+    showConfirmButton: false,
+    timer: 3500
+});
+</script>
+<?php endif; ?>
+
 </body>
 
 </html>
