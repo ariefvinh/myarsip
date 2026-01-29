@@ -71,7 +71,7 @@
             <!-- Modal Body -->
             <div class="modal-body">
                 <form id="form_user"
-                      action="<?= site_url('user/tambah_aksi') ?>"
+                      action="<?= site_url('users/tambah_aksi') ?>"
                       method="post"
                       enctype="multipart/form-data">
 
