@@ -32,6 +32,21 @@ class User_m extends CI_Model
         $query = $this->db->get();
         return $query->row();
     }
+    // Tambah data
+    public function add($data)
+    {
+        $params = array(
+            'username' => $data['username'],
+            'password' => $data['password'],
+            'name' => $data['name'],
+            'address' => $data['address'],
+            'level' => $data['level'],
+            'image' => $data['image'],
+            'created_at' => date('Y-m-d H:i:s')
+        );
+        $this->db->insert($this->table, $params);
+        return $this->db->insert_id();
+    }
 
     
 }
