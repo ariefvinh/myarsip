@@ -24,7 +24,7 @@ class Users extends CI_Controller
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
-        $this->load->view('users', $data);
+        $this->load->view('folder_user/users', $data);
         $this->load->view('template/footer');
     }
     public function tambah_aksi()
@@ -94,7 +94,7 @@ class Users extends CI_Controller
 
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebar', $data);
-            $this->load->view('users_view', $data);
+            $this->load->view('folder_user/users_view', $data);
             $this->load->view('template/footer');
         } else {
             echo "<script>
